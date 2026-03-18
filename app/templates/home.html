@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Головна{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <h1>Сервіс замовлення квитків у кінотеатр</h1>
+        <p>Переглядайте афішу, обирайте сеанси та бронюйте місця онлайн.</p>
+        <div class="hero-actions">
+            <a href="/showtimes" class="btn">Переглянути сеанси</a>
+            <a href="/movies" class="btn btn-secondary">Список фільмів</a>
+        </div>
+    </div>
+</section>
+
+<h2>Афіша</h2>
+<div class="grid cards-grid">
+    {% for movie in movies %}
+        <article class="card">
+            <h3>{{ movie.title }}</h3>
+            <p><strong>Жанр:</strong> {{ movie.genre }}</p>
+            <p><strong>Тривалість:</strong> {{ movie.duration_minutes }} хв</p>
+            <p><strong>Вікове обмеження:</strong> {{ movie.age_limit }}+</p>
+            <p>{{ movie.description }}</p>
+            <div class="muted">Сеансів: {{ movie.showtimes | length }}</div>
+        </article>
+    {% endfor %}
+</div>
+{% endblock %}

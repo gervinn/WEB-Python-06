@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Сеанси{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Сеанси</h2>
+</div>
+
+{% if current_user and current_user.role == 'admin' %}
+<div class="form-card wide">
+    <h3>Додати сеанс</h3>
+    <form action="/showtimes/new" method="post" class="form-grid">
+        <label>Фільм
+            <select name="movie_id" required>
+                {% for movie in movies %}
+                    <option value="{{ movie.id }}">{{ movie.id }} — {{ movie.title }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Зал
+            <input type="text" name="hall_name" required>
+        </label>
+        <label>Час початку
+            <input type="datetime-local" name="start_time" required>
+        </label>
+        <label>Кількість місць
+            <input type="number" name="total_seats" required>
+        </label>
+        <button type="submit" class="btn">Додати сеанс</button>
+    </form>
+</div>
+{% endif %}
+
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фільм</th>
+            <th>Зал</th>
+            <th>Початок</th>
+            <th>Вільно місць</th>
+            <th>Дія</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for showtime in showtimes %}
+        <tr>
+            <td>{{ showtime.id }}</td>
+            <td>{{ showtime.movie.title }}</td>
+            <td>{{ showtime.hall_name }}</td>
+            <td>{{ showtime.start_time.strftime('%d.%m.%Y %H:%M') }}</td>
+            <td>{{ showtime.available_seats }} / {{ showtime.total_seats }}</td>
+            <td>
+                {% if current_user %}
+                <form action="/bookings/create" method="post" class="inline-form">
+                    <input type="hidden" name="showtime_id" value="{{ showtime.id }}">
+                    <input type="number" name="seats_reserved" min="1" max="10" value="1" required>
+                    <button type="submit" class="btn">Забронювати</button>
+                </form>
+                {% else %}
+                    <span class="muted">Увійдіть для бронювання</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

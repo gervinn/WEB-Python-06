@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Мої бронювання{% endblock %}
+{% block content %}
+<h2>Мої бронювання</h2>
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фільм</th>
+            <th>Зал</th>
+            <th>Початок</th>
+            <th>Місць</th>
+            <th>Дата бронювання</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.showtime.movie.title }}</td>
+            <td>{{ booking.showtime.hall_name }}</td>
+            <td>{{ booking.showtime.start_time.strftime('%d.%m.%Y %H:%M') }}</td>
+            <td>{{ booking.seats_reserved }}</td>
+            <td>{{ booking.booked_at.strftime('%d.%m.%Y %H:%M') }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">Бронювань поки немає.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
