@@ -1,0 +1,22 @@
+{% extends 'tickets/base.html' %}
+{% block title %}{{ hall.name }}{% endblock %}
+{% block content %}
+<div class="panel">
+    <h1>{{ hall.name }}</h1>
+    <p>Рядів: {{ hall.rows }} · місць у ряду: {{ hall.seats_per_row }} · загальна місткість: {{ hall.capacity }}</p>
+    <p>{{ hall.description }}</p>
+    {% if user.is_staff %}
+        <div class="actions">
+            <a class="btn secondary" href="{% url 'hall_update' hall.pk %}">Редагувати</a>
+            <a class="btn danger" href="{% url 'hall_delete' hall.pk %}">Видалити</a>
+        </div>
+    {% endif %}
+</div>
+<h2>Сеанси в цьому залі</h2>
+<div class="table-wrap">
+<table>
+<tr><th>Фільм</th><th>Дата</th><th>Ціна</th></tr>
+{% for screening in screenings %}<tr><td>{{ screening.movie.title }}</td><td>{{ screening.start_time|date:'d.m.Y H:i' }}</td><td>{{ screening.price }} грн</td></tr>{% empty %}<tr><td colspan="3">Сеансів немає.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

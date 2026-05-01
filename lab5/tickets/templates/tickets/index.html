@@ -1,0 +1,30 @@
+{% extends 'tickets/base.html' %}
+{% block title %}Головна — Cinema Tickets{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">Інформаційна система</p>
+        <h1>Замовлення квитків у кінотеатр</h1>
+        <p>Вебзастосунок реалізовано засобами Django з використанням моделей, форм, валідації, бази даних SQLite та CRUD-операцій залежно від ролі користувача.</p>
+        <div class="actions">
+            <a class="btn" href="{% url 'movie_list' %}">Переглянути фільми</a>
+            <a class="btn secondary" href="{% url 'screening_list' %}">Доступні сеанси</a>
+        </div>
+    </div>
+</section>
+
+<div class="stats-grid">
+    <div class="stat-card"><span>{{ movies_count }}</span><p>фільмів</p></div>
+    <div class="stat-card"><span>{{ screenings_count }}</span><p>активних сеансів</p></div>
+    {% if user.is_staff %}<div class="stat-card"><span>{{ orders_count }}</span><p>замовлень</p></div>{% endif %}
+</div>
+
+<h2>Останні фільми</h2>
+<div class="card-grid">
+    {% for movie in latest_movies %}
+        {% include 'tickets/partials/movie_card.html' with movie=movie %}
+    {% empty %}
+        <p>Поки що фільмів немає.</p>
+    {% endfor %}
+</div>
+{% endblock %}

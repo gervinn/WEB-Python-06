@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="details">
+    <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+    <div>
+        <h1>{{ movie.title }}</h1>
+        <p class="muted">{{ movie.genre }} · {{ movie.duration_minutes }} хв · {{ movie.age_limit }}</p>
+        <p>{{ movie.description }}</p>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Доступні сеанси</h2>
+    <table>
+        <thead><tr><th>Дата і час</th><th>Зал</th><th>Ціна</th><th>Місця</th><th></th></tr></thead>
+        <tbody>
+        {% for screening in screenings %}
+            <tr>
+                <td>{{ screening.starts_at }}</td>
+                <td>{{ screening.hall }}</td>
+                <td>{{ screening.price }} грн</td>
+                <td>{{ screening.available_seats }}</td>
+                <td><a class="btn-small" href="/booking/{{ screening.id }}">Замовити</a></td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">Сеансів поки немає.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

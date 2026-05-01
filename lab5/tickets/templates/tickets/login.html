@@ -1,0 +1,18 @@
+{% extends 'tickets/base.html' %}
+{% load form_tags %}
+{% block title %}Вхід{% endblock %}
+{% block content %}
+<div class="form-panel">
+    <h1>Вхід</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field|add_class:'input' }}
+            {% for error in field.errors %}<div class="error">{{ error }}</div>{% endfor %}
+        {% endfor %}
+        {% if form.non_field_errors %}<div class="error">{{ form.non_field_errors }}</div>{% endif %}
+        <button class="btn" type="submit">Увійти</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cinema Tickets{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+    <a class="logo" href="/">Cinema Tickets</a>
+    <nav>
+        <a href="/movies">Фільми</a>
+        <a href="/docs">OpenAPI</a>
+        {% if current_user %}
+            <a href="/my-orders">Мої квитки</a>
+            {% if current_user.role == 'admin' %}
+                <a href="/admin">Адмінпанель</a>
+            {% endif %}
+            <span class="user-badge">{{ current_user.full_name }} / {{ current_user.role }}</span>
+            <a class="btn small" href="/logout">Вийти</a>
+        {% else %}
+            <a href="/login">Увійти</a>
+            <a class="btn small" href="/register">Реєстрація</a>
+        {% endif %}
+    </nav>
+</header>
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+<footer class="footer">
+    <p>Навчальний RESTful API вебзастосунок: замовлення квитків у кінотеатр.</p>
+</footer>
+</body>
+</html>

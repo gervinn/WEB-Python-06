@@ -1,0 +1,28 @@
+{% extends 'tickets/base.html' %}
+{% block title %}Замовлення{% endblock %}
+{% block content %}
+<h1>{% if user.is_staff %}Усі замовлення{% else %}Мої замовлення{% endif %}</h1>
+{% if stats %}
+<div class="stats-grid">
+    <div class="stat-card"><span>{{ stats.orders_count|default:0 }}</span><p>замовлень</p></div>
+    <div class="stat-card"><span>{{ stats.total_tickets|default:0 }}</span><p>квитків</p></div>
+    <div class="stat-card"><span>{{ stats.income|default:0 }}</span><p>грн</p></div>
+</div>
+{% endif %}
+<div class="table-wrap">
+<table>
+<tr><th>ID</th><th>Фільм</th><th>Клієнт</th><th>Квитків</th><th>Сума</th><th>Статус</th><th>Дія</th></tr>
+{% for order in orders %}
+<tr>
+    <td>#{{ order.pk }}</td>
+    <td>{{ order.screening.movie.title }}</td>
+    <td>{{ order.customer_name }}</td>
+    <td>{{ order.seats_count }}</td>
+    <td>{{ order.total_price }} грн</td>
+    <td>{{ order.get_status_display }}</td>
+    <td><a class="btn small" href="{% url 'order_detail' order.pk %}">Деталі</a></td>
+</tr>
+{% empty %}<tr><td colspan="7">Замовлень немає.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

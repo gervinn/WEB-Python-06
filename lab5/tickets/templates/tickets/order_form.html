@@ -1,0 +1,22 @@
+{% extends 'tickets/base.html' %}
+{% load form_tags %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="form-panel">
+    <h1>{{ title }}</h1>
+    <div class="order-summary">
+        <strong>{{ screening.movie.title }}</strong><br>
+        {{ screening.start_time|date:'d.m.Y H:i' }} · {{ screening.hall.name }} · {{ screening.price }} грн за квиток
+    </div>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field|add_class:'input' }}
+            {% for error in field.errors %}<div class="error">{{ error }}</div>{% endfor %}
+        {% endfor %}
+        {% if form.non_field_errors %}<div class="error">{{ form.non_field_errors }}</div>{% endif %}
+        <button class="btn" type="submit">Зберегти</button>
+    </form>
+</div>
+{% endblock %}

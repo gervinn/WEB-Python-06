@@ -1,0 +1,18 @@
+{% extends 'tickets/base.html' %}
+{% load form_tags %}
+{% block title %}Реєстрація{% endblock %}
+{% block content %}
+<div class="form-panel">
+    <h1>Реєстрація користувача</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field|add_class:'input' }}
+            {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+            {% for error in field.errors %}<div class="error">{{ error }}</div>{% endfor %}
+        {% endfor %}
+        <button class="btn" type="submit">Зареєструватися</button>
+    </form>
+</div>
+{% endblock %}

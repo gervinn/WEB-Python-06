@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Головна — Cinema Tickets{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">RESTful API + server-side HTML</p>
+        <h1>Замовлення квитків у кінотеатр</h1>
+        <p>Фільми, сеанси, бронювання квитків, ролі адміністратора та користувача.</p>
+        <div class="hero-actions">
+            <a class="btn" href="/movies">Переглянути фільми</a>
+            <a class="btn secondary" href="/docs">Відкрити OpenAPI</a>
+        </div>
+    </div>
+</section>
+
+<h2>Актуальні фільми</h2>
+<div class="movie-grid">
+    {% for movie in movies %}
+        <article class="card movie-card">
+            {% if movie.poster_url %}
+                <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h3>{{ movie.title }}</h3>
+                <p class="muted">{{ movie.genre }} · {{ movie.duration_minutes }} хв · {{ movie.age_rating }}</p>
+                <p>{{ movie.description }}</p>
+                <a class="btn small" href="/movies/{{ movie.id }}">Детальніше</a>
+            </div>
+        </article>
+    {% endfor %}
+</div>
+{% endblock %}

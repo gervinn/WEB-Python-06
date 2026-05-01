@@ -1,0 +1,22 @@
+{% extends 'tickets/base.html' %}
+{% block title %}Кінозали{% endblock %}
+{% block content %}
+<div class="page-head">
+    <div>
+        <h1>Кінозали</h1>
+        <p>Перелік залів кінотеатру.</p>
+    </div>
+    {% if user.is_staff %}<a class="btn" href="{% url 'hall_create' %}">Додати зал</a>{% endif %}
+</div>
+<div class="card-grid">
+    {% for hall in halls %}
+    <article class="card">
+        <div class="card-body">
+            <h3>{{ hall.name }}</h3>
+            <p>Місткість: {{ hall.capacity }} місць</p>
+            <a class="btn small" href="{% url 'hall_detail' hall.pk %}">Детальніше</a>
+        </div>
+    </article>
+    {% empty %}<p>Залів немає.</p>{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+    <div>
+        <h1>Адмінпанель</h1>
+        <p>Режим адміністратора: керування фільмами та перегляд статистики.</p>
+    </div>
+    <a class="btn" href="/admin/movies">Керування фільмами</a>
+</div>
+
+<div class="stats-grid">
+    <div class="stat"><b>{{ counters.users }}</b><span>Користувачі</span></div>
+    <div class="stat"><b>{{ counters.movies }}</b><span>Фільми</span></div>
+    <div class="stat"><b>{{ counters.screenings }}</b><span>Сеанси</span></div>
+    <div class="stat"><b>{{ counters.orders }}</b><span>Замовлення</span></div>
+</div>
+
+<section class="panel">
+    <h2>Статистика продажів через MongoDB aggregation</h2>
+    <table>
+        <thead><tr><th>Фільм</th><th>Замовлення</th><th>Квитки</th><th>Дохід</th></tr></thead>
+        <tbody>
+            {% for row in stats %}
+            <tr>
+                <td>{{ row.movie_title }}</td>
+                <td>{{ row.orders_count }}</td>
+                <td>{{ row.tickets }}</td>
+                <td>{{ row.revenue }} грн</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">Замовлень ще немає.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Реєстрація{% endblock %}
+{% block content %}
+<div class="form-page">
+    <form class="form-card" method="post" action="/register">
+        <h1>Реєстрація користувача</h1>
+        {% if error %}<p class="alert">{{ error }}</p>{% endif %}
+        <label>ПІБ</label>
+        <input type="text" name="full_name" required placeholder="Іван Петренко">
+        <label>Email</label>
+        <input type="email" name="email" required placeholder="user@example.com">
+        <label>Пароль</label>
+        <input type="password" name="password" required minlength="6">
+        <button class="btn" type="submit">Створити акаунт</button>
+    </form>
+</div>
+{% endblock %}

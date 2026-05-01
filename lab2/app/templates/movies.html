@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Фільми{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Фільми</h1>
+        <p class="muted">Каталог фільмів, доступних для перегляду.</p>
+    </div>
+</div>
+<div class="movie-grid">
+    {% for movie in movies %}
+        <article class="card movie-card">
+            {% if movie.poster_url %}<img src="{{ movie.poster_url }}" alt="{{ movie.title }}">{% endif %}
+            <div class="card-body">
+                <h3>{{ movie.title }}</h3>
+                <p class="muted">{{ movie.genre }} · {{ movie.duration_minutes }} хв · {{ movie.age_rating }}</p>
+                <p>{{ movie.description }}</p>
+                <a class="btn small" href="/movies/{{ movie.id }}">Детальніше</a>
+            </div>
+        </article>
+    {% endfor %}
+</div>
+{% endblock %}

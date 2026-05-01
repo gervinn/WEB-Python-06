@@ -1,0 +1,20 @@
+{% extends 'tickets/base.html' %}
+{% block title %}Замовлення #{{ order.pk }}{% endblock %}
+{% block content %}
+<div class="panel">
+    <h1>Замовлення #{{ order.pk }}</h1>
+    <p><strong>Фільм:</strong> {{ order.screening.movie.title }}</p>
+    <p><strong>Сеанс:</strong> {{ order.screening.start_time|date:'d.m.Y H:i' }}, {{ order.screening.hall.name }}</p>
+    <p><strong>Клієнт:</strong> {{ order.customer_name }}</p>
+    <p><strong>Email:</strong> {{ order.email }}</p>
+    <p><strong>Телефон:</strong> {{ order.phone }}</p>
+    <p><strong>Кількість квитків:</strong> {{ order.seats_count }}</p>
+    <p><strong>Сума:</strong> {{ order.total_price }} грн</p>
+    <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
+    <p><strong>Коментар:</strong> {{ order.comment|default:'—' }}</p>
+    <div class="actions">
+        <a class="btn secondary" href="{% url 'order_update' order.pk %}">Редагувати</a>
+        <a class="btn danger" href="{% url 'order_delete' order.pk %}">Видалити</a>
+    </div>
+</div>
+{% endblock %}

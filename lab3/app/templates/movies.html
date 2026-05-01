@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+    <div>
+        <h1>Фільми</h1>
+        <p>Пошук працює через MongoDB text index.</p>
+    </div>
+    <form class="search" method="get" action="/movies">
+        <input type="text" name="search" value="{{ search }}" placeholder="Пошук за назвою, жанром, описом">
+        <button class="btn-small" type="submit">Шукати</button>
+    </form>
+</div>
+
+<div class="grid">
+    {% for movie in movies %}
+        <article class="card">
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+            <h3>{{ movie.title }}</h3>
+            <p>{{ movie.genre }} · {{ movie.duration_minutes }} хв · {{ movie.age_limit }}</p>
+            <p>{{ movie.description[:100] }}{% if movie.description|length > 100 %}...{% endif %}</p>
+            <a class="btn-small" href="/movies/{{ movie.id }}">Сеанси</a>
+        </article>
+    {% else %}
+        <div class="empty">Фільми не знайдено.</div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ movie.title }}{% endblock %}
+{% block content %}
+<article class="detail-layout">
+    <div class="detail-poster">
+        {% if movie.poster_url %}<img src="{{ movie.poster_url }}" alt="{{ movie.title }}">{% endif %}
+    </div>
+    <div>
+        <h1>{{ movie.title }}</h1>
+        <p class="muted">{{ movie.genre }} · {{ movie.duration_minutes }} хв · {{ movie.age_rating }}</p>
+        <p>{{ movie.description }}</p>
+        <h2>Сеанси</h2>
+        {% if movie.screenings %}
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Дата і час</th>
+                        <th>Зал</th>
+                        <th>Ціна</th>
+                        <th>Вільні місця</th>
+                        <th>Дія</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for screening in movie.screenings %}
+                        <tr>
+                            <td>{{ screening.starts_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                            <td>{{ screening.hall }}</td>
+                            <td>{{ screening.price }} грн</td>
+                            <td>{{ screening.available_seats }}</td>
+                            <td><a class="btn small" href="/book/{{ screening.id }}">Замовити</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="muted">Сеансів поки немає.</p>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

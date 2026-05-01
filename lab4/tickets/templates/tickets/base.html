@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CinemaDjango{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'tickets/css/style.css' %}">
+</head>
+<body>
+<header class="header">
+    <nav class="navbar container">
+        <a class="logo" href="{% url 'tickets:index' %}">Cinema<span>Django</span></a>
+        <div class="nav-links">
+            <a href="{% url 'tickets:index' %}">Головна</a>
+            <a href="{% url 'tickets:movies' %}">Фільми</a>
+            <a href="{% url 'tickets:screenings' %}">Сеанси</a>
+            <a href="{% url 'tickets:about' %}">Про застосунок</a>
+        </div>
+    </nav>
+</header>
+
+<main class="container page">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="container">ЛР №4 · Django · Маршрутизація · Представлення · Шаблони · Фіксовані дані</div>
+</footer>
+</body>
+</html>

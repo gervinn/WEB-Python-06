@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">Лабораторна робота №3</p>
+        <h1>Замовлення квитків у кінотеатр з MongoDB</h1>
+        <p>Контент генерується на сервері, дані зберігаються у MongoDB, доступ до БД виконується через бібліотеку <b>pymongo</b>.</p>
+        <div class="actions">
+            <a class="btn" href="/movies">Переглянути фільми</a>
+            <a class="btn ghost" href="/docs">Swagger / OpenAPI</a>
+        </div>
+    </div>
+    <div class="hero-card">
+        <h3>Дані для входу</h3>
+        <p><b>Admin:</b> admin@cinema.local / admin123</p>
+        <p><b>User:</b> user@cinema.local / user123</p>
+    </div>
+</section>
+
+<h2>Останні фільми</h2>
+<div class="grid">
+    {% for movie in movies %}
+        <article class="card">
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+            <h3>{{ movie.title }}</h3>
+            <p>{{ movie.genre }} · {{ movie.duration_minutes }} хв · {{ movie.age_limit }}</p>
+            <a class="btn-small" href="/movies/{{ movie.id }}">Детальніше</a>
+        </article>
+    {% endfor %}
+</div>
+
+<section class="panel">
+    <h2>MongoDB aggregation</h2>
+    <p>Нижче показується статистика, сформована через aggregation pipeline у MongoDB.</p>
+    {% if stats %}
+    <table>
+        <thead><tr><th>Фільм</th><th>Квитки</th><th>Дохід</th></tr></thead>
+        <tbody>
+            {% for row in stats %}
+                <tr><td>{{ row.movie_title }}</td><td>{{ row.tickets }}</td><td>{{ row.revenue }} грн</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="muted">Поки що немає замовлень. Створіть замовлення, щоб побачити статистику.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "tickets/base.html" %}
+{% block title %}Про застосунок · CinemaDjango{% endblock %}
+{% block content %}
+<div class="page-title">
+    <h1>Про вебзастосунок</h1>
+    <p>Ця сторінка демонструє виконання вимог лабораторної роботи №4.</p>
+</div>
+
+<section class="info-grid">
+    <div class="info-card">
+        <h2>Реалізовані можливості</h2>
+        <ul>
+            <li>розгортання Django-серверу;</li>
+            <li>організація маршрутизації запитів;</li>
+            <li>створення представлень у <code>views.py</code>;</li>
+            <li>використання шаблонів Django;</li>
+            <li>робота з фіксованими даними без БД.</li>
+        </ul>
+    </div>
+    <div class="info-card">
+        <h2>Технології</h2>
+        <ul>
+            {% for tech in technologies %}
+                <li>{{ tech }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="info-card wide">
+        <h2>Маршрути</h2>
+        <div class="route-list">
+            {% for route in routes %}
+                <code>{{ route }}</code>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

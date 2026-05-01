@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="form-card">
+    <h1>Реєстрація користувача</h1>
+    {% if error %}<div class="alert">{{ error }}</div>{% endif %}
+    <form method="post">
+        <label>ПІБ</label>
+        <input type="text" name="full_name" required placeholder="Іван Петренко">
+        <label>Email</label>
+        <input type="email" name="email" required placeholder="user@example.com">
+        <label>Пароль</label>
+        <input type="password" name="password" required minlength="4">
+        <button class="btn" type="submit">Створити акаунт</button>
+    </form>
+</section>
+{% endblock %}

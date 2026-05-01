@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+    <div>
+        <h1>CRUD для Movie</h1>
+        <p>Для сутності Movie реалізовано create, read, update, delete.</p>
+    </div>
+    <a class="btn" href="/admin/movies/create">Додати фільм</a>
+</div>
+
+<section class="panel">
+    <table>
+        <thead><tr><th>Назва</th><th>Жанр</th><th>Тривалість</th><th>Вік</th><th>Дії</th></tr></thead>
+        <tbody>
+        {% for movie in movies %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.duration_minutes }} хв</td>
+                <td>{{ movie.age_limit }}</td>
+                <td class="actions-cell">
+                    <a class="btn-small" href="/movies/{{ movie.id }}">Read</a>
+                    <a class="btn-small" href="/admin/movies/{{ movie.id }}/edit">Update</a>
+                    <form method="post" action="/admin/movies/{{ movie.id }}/delete" onsubmit="return confirm('Видалити фільм?')">
+                        <button class="btn-small danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">Фільмів немає.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

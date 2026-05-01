@@ -1,0 +1,35 @@
+{% extends "tickets/base.html" %}
+{% block title %}Сеанси · CinemaDjango{% endblock %}
+{% block content %}
+<div class="page-title">
+    <h1>Сеанси</h1>
+    <p>Маршрут <code>/screenings/</code> відображає фіксований список кіносеансів.</p>
+</div>
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Фільм</th>
+                <th>Дата</th>
+                <th>Час</th>
+                <th>Зал</th>
+                <th>Ціна</th>
+                <th>Дія</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for screening in screenings %}
+                <tr>
+                    <td>{{ screening.movie.title }}</td>
+                    <td>{{ screening.date }}</td>
+                    <td>{{ screening.time }}</td>
+                    <td>{{ screening.hall }}</td>
+                    <td>{{ screening.price }} грн</td>
+                    <td><a class="small-button" href="{% url 'tickets:order_ticket' screening.id %}">Замовити</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

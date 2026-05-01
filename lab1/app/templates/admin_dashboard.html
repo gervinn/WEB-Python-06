@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Адмінпанель{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Адмінпанель</h1>
+        <p class="muted">Керування даними кінотеатру.</p>
+    </div>
+    <a class="btn" href="/admin/movies">Керувати фільмами</a>
+</div>
+<div class="stats-grid">
+    <div class="stat-card"><strong>{{ stats.users }}</strong><span>Користувачі</span></div>
+    <div class="stat-card"><strong>{{ stats.movies }}</strong><span>Фільми</span></div>
+    <div class="stat-card"><strong>{{ stats.screenings }}</strong><span>Сеанси</span></div>
+    <div class="stat-card"><strong>{{ stats.orders }}</strong><span>Замовлення</span></div>
+</div>
+{% endblock %}

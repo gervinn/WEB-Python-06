@@ -1,0 +1,24 @@
+{% extends 'tickets/base.html' %}
+{% block title %}Фільми{% endblock %}
+{% block content %}
+<div class="page-head">
+    <div>
+        <h1>Фільми</h1>
+        <p>Перегляд фільмів, що доступні у системі.</p>
+    </div>
+    {% if user.is_staff %}<a class="btn" href="{% url 'movie_create' %}">Додати фільм</a>{% endif %}
+</div>
+
+<form method="get" class="search-form">
+    <input type="text" name="q" value="{{ query }}" placeholder="Пошук за назвою або жанром">
+    <button class="btn secondary" type="submit">Пошук</button>
+</form>
+
+<div class="card-grid">
+    {% for movie in movies %}
+        {% include 'tickets/partials/movie_card.html' with movie=movie %}
+    {% empty %}
+        <p>Фільми не знайдено.</p>
+    {% endfor %}
+</div>
+{% endblock %}

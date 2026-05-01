@@ -1,0 +1,15 @@
+{% extends "tickets/base.html" %}
+{% block title %}Замовлення створено · CinemaDjango{% endblock %}
+{% block content %}
+<section class="success-card">
+    <p class="label">Замовлення сформовано</p>
+    <h1>Квитки успішно заброньовано</h1>
+    <p>Глядач: <strong>{{ customer_name }}</strong></p>
+    <p>Email: <strong>{{ email }}</strong></p>
+    <p>Фільм: <strong>{{ movie.title }}</strong></p>
+    <p>Сеанс: <strong>{{ screening.date }} о {{ screening.time }}</strong>, {{ screening.hall }}</p>
+    <p>Кількість квитків: <strong>{{ seats }}</strong></p>
+    <p>Загальна сума: <strong>{{ total_price }} грн</strong></p>
+    <a class="button" href="{% url 'tickets:movies' %}">Повернутися до фільмів</a>
+</section>
+{% endblock %}

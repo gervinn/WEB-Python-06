@@ -1,0 +1,30 @@
+{% extends "tickets/base.html" %}
+{% block title %}{{ movie.title }} · CinemaDjango{% endblock %}
+{% block content %}
+<section class="detail-layout">
+    <img class="detail-poster" src="{{ movie.poster }}" alt="{{ movie.title }}">
+    <div>
+        <p class="label">{{ movie.genre }}</p>
+        <h1>{{ movie.title }}</h1>
+        <p class="lead">{{ movie.description }}</p>
+        <div class="info-row">
+            <span>{{ movie.duration }} хв</span>
+            <span>{{ movie.age_limit }}</span>
+        </div>
+        <h2>Доступні сеанси</h2>
+        <div class="screening-list">
+            {% for screening in screenings %}
+                <div class="screening-item">
+                    <div>
+                        <strong>{{ screening.date }} о {{ screening.time }}</strong>
+                        <p>{{ screening.hall }} · {{ screening.price }} грн</p>
+                    </div>
+                    <a class="small-button" href="{% url 'tickets:order_ticket' screening.id %}">Замовити</a>
+                </div>
+            {% empty %}
+                <p>Для цього фільму поки немає сеансів.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

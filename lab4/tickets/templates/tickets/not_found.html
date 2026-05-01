@@ -1,0 +1,9 @@
+{% extends "tickets/base.html" %}
+{% block title %}Не знайдено · CinemaDjango{% endblock %}
+{% block content %}
+<section class="success-card">
+    <h1>{{ message }}</h1>
+    <p>Перевірте правильність адреси або поверніться на головну сторінку.</p>
+    <a class="button" href="{% url 'tickets:index' %}">На головну</a>
+</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+<article class="card movie-card">
+    {% if movie.poster_url %}
+        <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+    {% else %}
+        <div class="poster-placeholder">{{ movie.title }}</div>
+    {% endif %}
+    <div class="card-body">
+        <h3>{{ movie.title }}</h3>
+        <p>{{ movie.genre }} · {{ movie.duration_minutes }} хв · {{ movie.age_rating }}</p>
+        <a class="btn small" href="{% url 'movie_detail' movie.pk %}">Детальніше</a>
+    </div>
+</article>

@@ -1,0 +1,18 @@
+{% extends 'tickets/base.html' %}
+{% block title %}Сеанс{% endblock %}
+{% block content %}
+<div class="panel">
+    <h1>{{ screening.movie.title }}</h1>
+    <p><strong>Зал:</strong> {{ screening.hall.name }}</p>
+    <p><strong>Дата та час:</strong> {{ screening.start_time|date:'d.m.Y H:i' }}</p>
+    <p><strong>Ціна:</strong> {{ screening.price }} грн</p>
+    <p><strong>Статус:</strong> {% if screening.is_active %}Активний{% else %}Неактивний{% endif %}</p>
+    <div class="actions">
+        {% if screening.is_active %}<a class="btn" href="{% url 'order_create' screening.pk %}">Замовити квитки</a>{% endif %}
+        {% if user.is_staff %}
+            <a class="btn secondary" href="{% url 'screening_update' screening.pk %}">Редагувати</a>
+            <a class="btn danger" href="{% url 'screening_delete' screening.pk %}">Видалити</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

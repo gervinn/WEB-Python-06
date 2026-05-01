@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="form-card">
+    <h1>Замовлення квитків</h1>
+    {% if error %}<div class="alert">{{ error }}</div>{% endif %}
+    <div class="summary">
+        <h3>{{ movie.title }}</h3>
+        <p>{{ screening.starts_at }} · {{ screening.hall }}</p>
+        <p>Ціна одного квитка: <b>{{ screening.price }} грн</b></p>
+        <p>Доступно місць: <b>{{ screening.available_seats }}</b></p>
+    </div>
+    <form method="post">
+        <label>Кількість квитків</label>
+        <input type="number" name="seats_count" min="1" max="10" value="1" required>
+        <button class="btn" type="submit">Підтвердити замовлення</button>
+    </form>
+</section>
+{% endblock %}

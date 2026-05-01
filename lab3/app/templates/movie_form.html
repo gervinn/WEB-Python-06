@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="form-card wide">
+    <h1>{% if action == 'create' %}Додавання фільму{% else %}Редагування фільму{% endif %}</h1>
+    <form method="post">
+        <label>Назва</label>
+        <input type="text" name="title" required value="{{ movie.title or '' }}">
+
+        <label>Жанр</label>
+        <input type="text" name="genre" required value="{{ movie.genre or '' }}">
+
+        <label>Тривалість, хв</label>
+        <input type="number" name="duration_minutes" min="1" max="400" required value="{{ movie.duration_minutes or 100 }}">
+
+        <label>Вікове обмеження</label>
+        <input type="text" name="age_limit" value="{{ movie.age_limit or '0+' }}">
+
+        <label>URL постера</label>
+        <input type="url" name="poster_url" value="{{ movie.poster_url or 'https://placehold.co/600x850?text=Cinema' }}">
+
+        <label>Опис</label>
+        <textarea name="description" rows="5">{{ movie.description or '' }}</textarea>
+
+        <div class="actions">
+            <button class="btn" type="submit">Зберегти</button>
+            <a class="btn ghost" href="/admin/movies">Назад</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

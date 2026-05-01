@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{% if movie %}Редагування{% else %}Новий фільм{% endif %}{% endblock %}
+{% block content %}
+<div class="form-page">
+    <form class="form-card wide" method="post" action="{{ action }}">
+        <h1>{% if movie %}Редагувати фільм{% else %}Додати фільм{% endif %}</h1>
+        <label>Назва</label>
+        <input type="text" name="title" required value="{{ movie.title if movie else '' }}">
+        <label>Жанр</label>
+        <input type="text" name="genre" required value="{{ movie.genre if movie else '' }}">
+        <label>Тривалість, хв</label>
+        <input type="number" name="duration_minutes" min="1" required value="{{ movie.duration_minutes if movie else 90 }}">
+        <label>Віковий рейтинг</label>
+        <input type="text" name="age_rating" required value="{{ movie.age_rating if movie else '12+' }}">
+        <label>Опис</label>
+        <textarea name="description" rows="5" required>{{ movie.description if movie else '' }}</textarea>
+        <label>URL постера</label>
+        <input type="url" name="poster_url" value="{{ movie.poster_url if movie and movie.poster_url else '' }}">
+        <button class="btn" type="submit">Зберегти</button>
+        <a class="btn secondary" href="/admin/movies">Назад</a>
+    </form>
+</div>
+{% endblock %}

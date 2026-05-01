@@ -1,0 +1,37 @@
+{% extends "tickets/base.html" %}
+{% block title %}Головна · CinemaDjango{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="label">Лабораторна робота №4</p>
+        <h1>Замовлення квитків у кінотеатр на Django</h1>
+        <p class="lead">Вебзастосунок демонструє роботу Django-серверу, маршрутизацію запитів, представлення та HTML-шаблони без підключення до бази даних.</p>
+        <div class="actions">
+            <a class="button" href="{% url 'tickets:movies' %}">Переглянути фільми</a>
+            <a class="button secondary" href="{% url 'tickets:screenings' %}">Сеанси</a>
+        </div>
+    </div>
+    <div class="stat-card">
+        <h2>Дані застосунку</h2>
+        <p><strong>{{ movies_count }}</strong> фільми</p>
+        <p><strong>{{ screenings_count }}</strong> сеансів</p>
+        <p>Дані беруться з файлу <code>tickets/data.py</code></p>
+    </div>
+</section>
+
+<section>
+    <h2>Популярні фільми</h2>
+    <div class="movie-grid">
+        {% for movie in featured_movies %}
+            <article class="movie-card">
+                <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+                <div class="movie-body">
+                    <h3>{{ movie.title }}</h3>
+                    <p>{{ movie.genre }} · {{ movie.duration }} хв · {{ movie.age_limit }}</p>
+                    <a class="small-button" href="{% url 'tickets:movie_detail' movie.id %}">Детальніше</a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

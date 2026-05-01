@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Вхід{% endblock %}
+{% block content %}
+<div class="form-page">
+    <form class="form-card" method="post" action="/login">
+        <h1>Вхід</h1>
+        {% if error %}<p class="alert">{{ error }}</p>{% endif %}
+        <label>Email</label>
+        <input type="email" name="email" required placeholder="admin@cinema.local">
+        <label>Пароль</label>
+        <input type="password" name="password" required placeholder="admin123">
+        <button class="btn" type="submit">Увійти</button>
+        <p class="muted">Адмін: admin@cinema.local / admin123</p>
+    </form>
+</div>
+{% endblock %}

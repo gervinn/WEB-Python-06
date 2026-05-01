@@ -1,0 +1,25 @@
+{% extends "tickets/base.html" %}
+{% block title %}Замовлення квитка · CinemaDjango{% endblock %}
+{% block content %}
+<section class="form-layout">
+    <div>
+        <p class="label">Оформлення замовлення</p>
+        <h1>{{ movie.title }}</h1>
+        <p class="lead">{{ screening.date }} о {{ screening.time }} · {{ screening.hall }} · {{ screening.price }} грн за квиток</p>
+    </div>
+
+    <form class="form-card" method="post">
+        {% csrf_token %}
+        <label>Ім'я глядача
+            <input type="text" name="customer_name" placeholder="Наприклад, Герман" required>
+        </label>
+        <label>Email
+            <input type="email" name="email" placeholder="user@example.com" required>
+        </label>
+        <label>Кількість квитків
+            <input type="number" name="seats" min="1" max="10" value="1" required>
+        </label>
+        <button class="button" type="submit">Підтвердити замовлення</button>
+    </form>
+</section>
+{% endblock %}

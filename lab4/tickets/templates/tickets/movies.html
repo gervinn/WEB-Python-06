@@ -1,0 +1,35 @@
+{% extends "tickets/base.html" %}
+{% block title %}Фільми · CinemaDjango{% endblock %}
+{% block content %}
+<div class="page-title">
+    <h1>Фільми</h1>
+    <p>Список фільмів формується на сервері з фіксованого набору даних.</p>
+</div>
+
+<form class="filters" method="get">
+    <input type="text" name="search" placeholder="Пошук за назвою або описом" value="{{ search }}">
+    <select name="genre">
+        <option value="">Усі жанри</option>
+        {% for genre in genres %}
+            <option value="{{ genre }}" {% if selected_genre == genre %}selected{% endif %}>{{ genre }}</option>
+        {% endfor %}
+    </select>
+    <button class="button" type="submit">Застосувати</button>
+</form>
+
+<div class="movie-grid">
+    {% for movie in movies %}
+        <article class="movie-card">
+            <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+            <div class="movie-body">
+                <h3>{{ movie.title }}</h3>
+                <p>{{ movie.genre }} · {{ movie.duration }} хв · {{ movie.age_limit }}</p>
+                <p>{{ movie.description|truncatechars:90 }}</p>
+                <a class="small-button" href="{% url 'tickets:movie_detail' movie.id %}">Детальніше</a>
+            </div>
+        </article>
+    {% empty %}
+        <p class="empty">За заданими параметрами фільмів не знайдено.</p>
+    {% endfor %}
+</div>
+{% endblock %}

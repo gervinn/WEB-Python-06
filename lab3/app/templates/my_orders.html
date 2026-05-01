@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Мої замовлення</h1>
+<section class="panel">
+    <table>
+        <thead><tr><th>Фільм</th><th>Сеанс</th><th>Квитки</th><th>Сума</th><th>Статус</th></tr></thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.movie_title }}</td>
+                <td>{{ order.screening.starts_at }} · {{ order.screening.hall }}</td>
+                <td>{{ order.seats_count }}</td>
+                <td>{{ order.total_price }} грн</td>
+                <td>{{ order.status }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">Замовлень ще немає.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
